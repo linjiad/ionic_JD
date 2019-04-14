@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button slot="start" fill="clear">
+      <i class="iconfont" style="font-size: 20px">&#xe609;</i>
+    </ion-button>
+    <ion-searchbar placeholder="请输入关键词"></ion-searchbar>
+    <ion-button slot="end" fill="clear" class="message">
+      <i class="iconfont" style="font-size: 30px">&#xe624;</i>
+      <ion-badge color="danger" class="badge">42</ion-badge>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides pager="true" [options]="slideOpts" #slide1 (ionSlideTouchEnd)="ionSlideTouchEnd()">
+    <ion-slide *ngFor="let item of listSlides">
+        <img [src]="item.pic">
+    </ion-slide>
+  </ion-slides>
+    <div class="h_title">
+        猜你喜欢
+    </div>
+    <div class="hotList">
+        <ul class="clearfix" [ngStyle]="{'width':hostListWidth}">
+            <li *ngFor="let item of hotList">
+                <img [src]="item.pic" alt="">
+                <p> {{item.title}} </p>
+            </li>
+        </ul>
+    </div>
+    <div class="h_title">
+        商品列表
+    </div>
+    <div class="plist">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6"*ngFor="let item of pList">
+                    <img [src]="item.pic">
+                    <p>{{item.title}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>
