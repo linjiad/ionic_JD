@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -19,7 +19,7 @@ export class Tab1Page {
           delay: 2000 // 延迟2秒
       }
   };
-  constructor() {
+  constructor(public navController: NavController) {
       // 初始化轮播图数据
     for (let i = 1; i <= 3 ; i++) {
         this.listSlides.push({
@@ -47,5 +47,9 @@ export class Tab1Page {
 
     ionSlideTouchEnd() {
       this.slide.startAutoplay(); // 解决手动轮播后不自动轮播
+    }
+
+    goSearch() {
+      this.navController.navigateForward('search');
     }
 }

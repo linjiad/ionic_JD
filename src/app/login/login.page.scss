@@ -1,0 +1,25 @@
+.login_toolbar{
+  --border-color:#fff; // 需要用官方文档修改
+}
+.login_logo{
+  text-align: center;
+  padding: 1rem;
+  img{
+    width: 6rem;
+    height: 6rem;
+    border-radius: 2rem;
+  }
+}
+.login_list{
+  input,span{
+    font-size: 1.4rem;
+  }
+}
+
+// 定义登录按钮样式
+
+.jd_btn{
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+}
