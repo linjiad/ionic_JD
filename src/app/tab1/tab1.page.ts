@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { CommonService } from '../services/common.service';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -9,8 +10,9 @@ export class Tab1Page {
     @ViewChild('slide1') slide;
   public listSlides: any[] = []; // 轮播图数组
   public hostListWidth: any = '400rem'; // 横向滑动宽度
-  public hotList: any[] = []; // 横向滑动数据数组
+  public hotList: any[] = []; // 猜你喜欢
   public pList: any[] = []; // 商品列表数组
+  public config: any = {}; // 获取全局配置
   public slideOpts = {
       effect: 'flip', // 轮播效果
       speed: 400,
@@ -19,37 +21,44 @@ export class Tab1Page {
           delay: 2000 // 延迟2秒
       }
   };
-  constructor(public navController: NavController) {
-      // 初始化轮播图数据
-    for (let i = 1; i <= 3 ; i++) {
-        this.listSlides.push({
-            pic: 'assets/img/slide0' + i + '.png',
-            url: '',
-        });
-    }
-      // 初始化横向滑动数据
-      for (let i = 1; i <= 9 ; i++) {
-          this.hotList.push({
-              pic: 'assets/img/0' + i + '.jpg',
-              title: '第' + i + '个',
-          });
-      }
-      // 右侧数据
-      for (let i = 1; i <= 12 ; i++) {
-          this.pList.push({
-              pic: 'assets/img/list' + i + '.jpg',
-              title: '第' + i + '个',
-          });
-      }
-      // 计算hostListWidth的宽度
-      this.hostListWidth = this.hotList.length * 9 + 'rem';
+  constructor(public navController: NavController, public common: CommonService) {
+      this.config = common.config;
   }
-
+  // 初始化
+  ngOnInit() {
+  this.getFocusData();
+  this.getHotData();
+  this.getProductList();
+  }
     ionSlideTouchEnd() {
       this.slide.startAutoplay(); // 解决手动轮播后不自动轮播
     }
 
     goSearch() {
       this.navController.navigateForward('search');
+    }
+    // 获取轮播图数据
+    getFocusData() {
+      const api = '/api/focus';
+      this.common.ajaxget(api).then((response: any) => {
+          this.listSlides = response.result;
+      });
+    }
+    // 猜你喜欢
+    getHotData() {
+        const api = '/api/plist?is_hot=1';
+        this.common.ajaxget(api).then((response: any) => {
+            this.hotList = response.result;
+            // 计算hostListWidth的宽度
+            this.hostListWidth = this.hotList.length * 9 + 'rem';
+        });
+    }
+    // 获取商品列表
+    getProductList() {
+        // 商品列表
+        const api = '/api/plist?is_hot=1';
+        this.common.ajaxget(api).then((response: any) => {
+            this.pList = response.result;
+        });
     }
 }

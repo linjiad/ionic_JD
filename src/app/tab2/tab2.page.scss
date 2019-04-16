@@ -6,6 +6,14 @@
     width: 25%;
     height: 100%;
     overflow-y: auto;
+    background: #eee;
+    ion-item{
+      font-size: 1.3rem;
+      --background: #eee;
+    }
+    ion-item.active{
+      --background: #fff;
+    }
   }
   .cate_right{
     width: 74%;

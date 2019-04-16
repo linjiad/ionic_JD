@@ -9,6 +9,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// http相关模块
+import { HttpClientModule } from '@angular/common/http';
+import { CommonService } from './services/common.service';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -17,10 +21,11 @@ import { AppComponent } from './app.component';
           mode: 'ios', // 配置 android ios 都使用一个样式
           backButtonText: '返回' // 配置默认的返回按钮
       }
-  ), AppRoutingModule],
+  ), AppRoutingModule, HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
+    CommonService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
