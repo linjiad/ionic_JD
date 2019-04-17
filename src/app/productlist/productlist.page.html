@@ -12,13 +12,13 @@
           </ion-button>
         </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar class="sub_toolbar" *ngIf="!flag">   
-      <div class="subheader">
-         <div>综合</div>
-         <div>销量</div>
-         <div>价格</div>
-      </div>
-   </ion-toolbar>
+    <ion-toolbar class="sub_toolbar" *ngIf="!flag">
+        <div class="subheader">
+            <div *ngFor="let item of subHeaderList" (tap)="subHeaderChange(item.id)" [ngClass]="{'active': subHeaderSelected==item.id}">
+                {{item.title}}
+            </div>
+        </div>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -34,7 +34,8 @@
                 </ion-label>
               </ion-item>
         </ion-list>
-        <ion-infinite-scroll threshold="100px" (ionInfinite)="getProductList($event)">
+        <p *ngIf="hasmore">---------我也是有底线的---------</p>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="getProductList($event)" #myInfiniteScroll>
             <ion-infinite-scroll-content
               loadingSpinner="bubbles"
               loadingText="努力加载中...">
