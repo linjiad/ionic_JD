@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 // http相关模块
 import { HttpClientModule } from '@angular/common/http';
 import { CommonService } from './services/common.service';
+// 本地存储模块
+import { StorageService } from './services/storage.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +28,7 @@ import { CommonService } from './services/common.service';
     StatusBar,
     SplashScreen,
     CommonService,
+    StorageService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -5,7 +5,7 @@
                 <ion-icon slot="icon-only" name="arrow-back" color="dark"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-searchbar placeholder="Filter Schedules" animated></ion-searchbar>
+        <ion-searchbar placeholder="请输入搜索关键词" animated [(ngModel)]="keywords"></ion-searchbar>
         <ion-buttons slot="end">
             <ion-button (click)="doSearch()" color="dark">
                 搜索
@@ -38,27 +38,23 @@
         </div>
         <div class="history">
             <h3 class="search_title">历史搜索</h3>
-            <ion-list lines="full">
-                <ion-item>
-                    男装
-                </ion-item>
-                <ion-item>
-                    女装
-                </ion-item>
-                <ion-item>
-                    汽车
-                </ion-item>
-                <ion-item>
-                    美容
-                </ion-item>
-            </ion-list>
+            <div *ngIf = "historyList.length > 0">
+                <ion-list lines="full">
+                    <ion-item *ngFor="let item of historyList" (press)="removeHistory(index)"  (tap)="goSearch(item)">
+                        {{item}}
+                    </ion-item>
+                </ion-list>
+            </div>
+            <div *ngIf = "historyList.length == 0">
+                还没有历史记录
+            </div>
         </div>
     </div>
     <div class="list_content" *ngIf="!flag">
         <ion-list>
             <ion-item *ngFor="let item of productList">
                 <ion-thumbnail slot="start">
-                    <img [src]="item.pic" />
+                    <img [src]="config.domain+ '/' +item.pic" />
                 </ion-thumbnail>
                 <ion-label>
                     <h3>{{item.title}}</h3>
@@ -66,5 +62,11 @@
                 </ion-label>
             </ion-item>
         </ion-list>
+        <ion-infinite-scroll *ngIf="hasInfiniteData" threshold="100px" (ionInfinite)="getProductList($event)">
+            <ion-infinite-scroll-content
+                    loadingSpinner="bubbles"
+                    loadingText="努力加载中...">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </div>
 </ion-content>

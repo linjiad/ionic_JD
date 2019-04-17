@@ -59,7 +59,7 @@ export class ProductlistPage implements OnInit {
     });
   }
   getProductList(event: any) {
-    const api = '/api/plist?cid=' + this.cid + '&page=' + this.page;
+    let api = '/api/plist?cid=' + this.cid + '&page=' + this.page;
     if (this.sort) {
       api = '/api/plist?cid=' + this.cid + '&page=' + this.page + '&sort=' + this.sort;
     }
