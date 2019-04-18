@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, Platform} from '@ionic/angular';
 import { CommonService } from '../services/common.service';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -21,8 +23,16 @@ export class Tab1Page {
           delay: 2000 // 延迟2秒
       }
   };
-  constructor(public navController: NavController, public common: CommonService) {
+  constructor(public navController: NavController,
+              public common: CommonService,
+            private appMinimize: AppMinimize,
+            private platform: Platform,
+             private barcodeScanner:BarcodeScanner) {
       this.config = common.config;
+      // 点击按钮返回
+      this.platform.backButton.subscribe(() => {
+          this.appMinimize.minimize();
+      });
   }
   // 初始化
   ngOnInit() {
@@ -59,6 +69,14 @@ export class Tab1Page {
         const api = '/api/plist?is_hot=1';
         this.common.ajaxget(api).then((response: any) => {
             this.pList = response.result;
+        });
+    }
+    // 二维码扫描
+    saomiao() {
+        this.barcodeScanner.scan().then(barcodeData => {
+            alert(barcodeData.text);
+        }).catch(err => {
+            console.log('Error', err);
         });
     }
 }

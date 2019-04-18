@@ -17,6 +17,7 @@ export class SearchPage implements OnInit {
     public hasInfiniteData: any = '';    // 开启上拉分页
     public subHeaderSelected: any = '';  // 重置选择的属性
     public config: any = {};  // 配置
+    public sort: any = '';
 
     constructor(public navController: NavController,
                 public storage: StorageService,

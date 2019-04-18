@@ -15,10 +15,10 @@
     </div>
     <ion-list class="login_list">
         <ion-item>
-            <ion-input placeholder="手机号/邮箱"></ion-input>
+            <ion-input placeholder="手机号/邮箱" [(ngModel)]="userinfo.username"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input placeholder="密码"></ion-input>
+            <ion-input placeholder="密码" type="password" [(ngModel)]="userinfo.password"></ion-input>
         </ion-item>
         <ion-item lines="none">
             <span slot="start">忘记密码</span>

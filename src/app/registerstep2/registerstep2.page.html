@@ -9,13 +9,17 @@
 <ion-content padding>
     <div class="code_info">
         <h4>马上验证手机，激活你的账户</h4>
-        <p class="code_sign_p">验证码已通过短信方式发送至15201621313，请输入验证码完成验证，手机绑定是为了验证用户的真实性和账号安全</p>
+        <p class="code_sign_p">验证码已通过短信方式发送至{{tel}}，请输入验证码完成验证，手机绑定是为了验证用户的真实性和账号安全</p>
     </div>
     <div class="sign_info">
-        <input type="text" placeholder="验证码" />
-        <div class="timer"> 
-               倒计时
+        <input type="text" placeholder="验证码"  [(ngModel)]="code"/>
+        <div class="timer" *ngIf="!sendCodeBtn">
+            倒计时{{num}}
         </div>
+
+        <ion-button class="timer" *ngIf="sendCodeBtn" (click)="sendCode()" color="danger">
+            重新发送验证码
+        </ion-button>
     </div>
   <ion-button (click)="goRegisterSetp3()" color="danger" expand="block" class="jd_btn">
      下一步

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-button slot="start" fill="clear">
+    <ion-button slot="start" fill="clear" (tap)="saomiao()">
       <i class="iconfont" style="font-size: 20px">&#xe609;</i>
     </ion-button>
     <ion-searchbar placeholder="请输入关键词" (tap)="goSearch()"></ion-searchbar>
@@ -22,7 +22,7 @@
     </div>
     <div class="hotList">
         <ul class="clearfix" [ngStyle]="{'width':hostListWidth}">
-            <li *ngFor="let item of hotList">
+            <li *ngFor="let item of hotList"  [routerLink]="['/pcontent']" [queryParams]="{id:item._id}">
                 <img [src]="config.domain + '/' + item.pic" alt="">
                 <p> {{item.title}} </p>
             </li>
@@ -34,7 +34,7 @@
     <div class="plist">
         <ion-grid>
             <ion-row>
-                <ion-col size="6"*ngFor="let item of pList">
+                <ion-col size="6"*ngFor="let item of pList"  [routerLink]="['/pcontent']" [queryParams]="{id:item._id}">
                     <div class="plist_inner">
                         <img [src]="config.domain + '/' + item.s_pic">
                         <p class="plist_title">{{item.title}}</p>

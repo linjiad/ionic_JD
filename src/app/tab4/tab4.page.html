@@ -1,14 +1,17 @@
 <ion-content>
-    <!-- <div class="user_top">
+    <div class="user_top" *ngIf="userinfo">
         <div class="user_left">
-            <img src="/assets/user.png">
+            <img src="/assets/img/user.png">
         </div>
         <div class="user_right">
             <h4>用户名:zhangsan</h4>
             <p>普通会员</p>
         </div>
-    </div> -->
-    <div class="user_top">
+        <ion-button  fill="clear" color="light" class="settings" [routerLink]="['/personal']">
+            <ion-icon slot="icon-only" name="settings"></ion-icon>
+        </ion-button>
+    </div>
+    <div class="user_top" *ngIf="!userinfo">
         <div class="user_left">
             <img src="/assets/img/user.png">
         </div>
@@ -16,8 +19,6 @@
             <p [routerLink]="['/login']">登录/注册  <ion-icon slot="start" name="arrow-forward"></ion-icon></p>
         </div>
     </div>
-
-
     <ion-list class="user_list">
         <ion-item-divider>
         </ion-item-divider>

@@ -15,6 +15,15 @@ import { CommonService } from './services/common.service';
 // 本地存储模块
 import { StorageService } from './services/storage.service';
 
+// 最小化模块
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
+
+// 监听广播事件
+import { EventService } from './services/eventemitter.service';
+
+// 操作手机，扫描二维码
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -29,6 +38,9 @@ import { StorageService } from './services/storage.service';
     SplashScreen,
     CommonService,
     StorageService,
+    AppMinimize,
+    EventService,
+    BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

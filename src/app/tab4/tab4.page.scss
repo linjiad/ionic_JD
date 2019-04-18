@@ -4,6 +4,11 @@
   padding: 3rem 1rem;
   display: flex;
   align-items: center;
+  .settings{
+    position: absolute;
+    top:2px;
+    right: 2px;
+  }
   .user_left{
     width: 5rem;
     img{
