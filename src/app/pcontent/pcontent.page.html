@@ -29,19 +29,20 @@
                 </div>
             </div>
             <div class="p_attr mb10">
-
-                <div class="attr" *ngFor="let items of list.attr">
-                    <strong>{{items.cate}}：</strong>
-                    <span *ngFor="let attr of items.list">{{attr}}</span>
+                <div id="myAttr" (click)="changeAttr($event)">
+                    <div class="attr" *ngFor="let items of list.attr">
+                        <strong>{{items.cate}}：</strong>
+                        <span *ngFor="let attr of items.list;let key = index" [ngClass]="{'active':key==0}">{{attr}}</span>
+                    </div>
                 </div>
                 <div class="number">
                     <strong>数量:</strong>
                     <div class="cart_number">
-                        <div class="input_left">-</div>
+                        <div class="input_left" (click)="decNum()" >-</div>
                         <div class="input_center">
-                            <input type="text"  readonly="readonly" value="1" name="num" id="num" />
+                            <input type="text"  readonly="readonly" value="1" name="num" id="num" [(ngModel)]="num"/>
                         </div>
-                        <div class="input_right">+</div>
+                        <div class="input_right" (click)="incNum()">+</div>
                     </div>
                 </div>
             </div>
@@ -53,7 +54,6 @@
             <div [innerHTML]='list.content'>
             </div>
         </div>
-
     </div>
 </ion-content>
 <ion-footer>
@@ -64,7 +64,7 @@
                 <p>购物车</p>
                 <ion-badge color="danger">1</ion-badge>
             </div>
-            <div class="addcart">
+            <div class="addcart" (click)="addCart()">
                 加入购物车
             </div>
             <div class="buy">

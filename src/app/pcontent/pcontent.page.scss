@@ -36,7 +36,6 @@
         color: #fff;
     }
 }
-
 /*商品详情页面的布局*/
 .p_content{
     background: #efefef;
@@ -93,6 +92,10 @@
                     padding: .5rem 1rem;
                     display: inline-block;
                     margin: .2rem .4rem;
+                }
+                .active{
+                    color: red;
+                    border: red 0.1rem solid;
                 }
             }
             //数量
