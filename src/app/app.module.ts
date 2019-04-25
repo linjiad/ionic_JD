@@ -24,6 +24,9 @@ import { EventService } from './services/eventemitter.service';
 // 操作手机，扫描二维码
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
+// 购物车服务
+import { CartService } from './services/cart.service';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -41,6 +44,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
     AppMinimize,
     EventService,
     BarcodeScanner,
+    CartService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

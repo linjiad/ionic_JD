@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { CommonService } from '../services/common.service';
 import { CartService } from '../services/cart.service';
 @Component({
-    selector: 'app-tab3',
-    templateUrl: 'tab3.page.html',
-    styleUrls: ['tab3.page.scss']
+  selector: 'app-cart',
+  templateUrl: './cart.page.html',
+  styleUrls: ['./cart.page.scss'],
 })
-export class Tab3Page {
+export class CartPage {
+
     public list: any = [];
     public config: any = {};
     public allPrice: any = 0;
@@ -57,7 +58,7 @@ export class Tab3Page {
     }
     // 判断是否全选
     isCheckAllFn() {
-      // 判断选中商品数量和列表数量是否相同
+        // 判断选中商品数量和列表数量是否相同
         if (this.cartService.getCheckedNum(this.list) === this.list.length) {
             this.isCheckedAll = true;
         } else {
@@ -66,14 +67,14 @@ export class Tab3Page {
     }
     // 全选反选
     checkAll() {
-      // 如果全选时，不让全选
+        // 如果全选时，不让全选
         if (this.isCheckedAll) {
             for (let i = 0; i < this.list.length; i++) {
                 this.list[i].checked = false;
             }
             this.isCheckedAll = false;
         } else {
-          // 如果全部选让全选
+            // 如果全部选让全选
             for (let i = 0; i < this.list.length; i++) {
 
                 this.list[i].checked = true;
@@ -85,4 +86,5 @@ export class Tab3Page {
     ionViewWillLeave() {
         this.storage.set('cartList', this.list);
     }
+
 }

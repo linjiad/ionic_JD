@@ -59,10 +59,10 @@
 <ion-footer>
     <ion-toolbar>
         <div class="footer_bar">
-            <div class="carticon">
+            <div class="carticon" [routerLink]="['/cart']">
                 <ion-icon slot="start" name="cart"></ion-icon>
                 <p>购物车</p>
-                <ion-badge color="danger">1</ion-badge>
+                <ion-badge color="danger">{{cartNum}}</ion-badge>
             </div>
             <div class="addcart" (click)="addCart()">
                 加入购物车

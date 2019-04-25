@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: 'registerstep3', loadChildren: './registerstep3/registerstep3.module#Registerstep3PageModule' },
   { path: 'productlist', loadChildren: './productlist/productlist.module#ProductlistPageModule' },
   { path: 'pcontent', loadChildren: './pcontent/pcontent.module#PcontentPageModule' },
-  { path: 'personal', loadChildren: './personal/personal.module#PersonalPageModule' },
+  { path: 'personal', loadChildren: './personal/personal.module#PersonalPageModule' },  { path: 'cart', loadChildren: './cart/cart.module#CartPageModule' },
+
 
 ];
 @NgModule({
