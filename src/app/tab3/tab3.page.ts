@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { CommonService } from '../services/common.service';
 import { CartService } from '../services/cart.service';
+import {NavController} from '@ionic/angular';
 @Component({
     selector: 'app-tab3',
     templateUrl: 'tab3.page.html',
@@ -12,7 +13,12 @@ export class Tab3Page {
     public config: any = {};
     public allPrice: any = 0;
     public isCheckedAll = true; // 全选按钮是否被选中
-    constructor(public storage: StorageService, public common: CommonService, public cartService: CartService) {
+    public isEdit = false;    // 编辑
+    public hasData = false;     // 判断购物车是否有数据
+    constructor(public storage: StorageService,
+                public common: CommonService,
+                public cartService: CartService,
+                public navController: NavController) {
         this.config = this.common.config;
     }
     // 监听checkbox
@@ -33,10 +39,14 @@ export class Tab3Page {
     // 给cartList添加属性checkde
     getCartsData() {
         const cartList = this.storage.get('cartList');
-        if (cartList) {
+        if (cartList && cartList.length > 0) {
             this.list = cartList;
+            // 购物车中有数据
+            this.hasData = true;
         } else {
             this.list = [];
+            // 购物车中没有数据
+            this.hasData = false;
         }
         // 获取选中商品的总价
         this.allPrice = this.cartService.getAllPrice(this.list);
@@ -84,5 +94,43 @@ export class Tab3Page {
     // 页面将要离开的时候保存购物车数据
     ionViewWillLeave() {
         this.storage.set('cartList', this.list);
+    }
+    // 删除购物车里面的数据
+    doDelete() {
+        // 获取未选中的商品
+        const noCheckedCartList = [];
+        for (let i = 0; i < this.list.length; i++) {
+            // 如果这个商品的选中状态为false就放进去
+            if (!this.list[i].checked) {
+                noCheckedCartList.push(this.list[i]);
+            }
+        }
+        this.list = noCheckedCartList;
+        // 如果list里面空了，就证明购物车为空
+        this.list.length > 0 ? this.hasData = true : this.hasData = false;
+        this.storage.set('cartList', this.list);
+
+    }
+
+    // 去结算
+    doCheckout() {
+        const tempArr = [];
+        for (let i = 0; i < this.list.length; i++) {
+            // 只结算被选中的列表
+            if (this.list[i].checked) {
+                tempArr.push(this.list[i]);
+            }
+        }
+        if (tempArr.length > 0) {
+            this.storage.set('checkoutData', tempArr);
+            // this.router.navigate(['/results'], { queryParams: { page: 1 } });
+            this.navController.navigateForward(['/checkout'], {
+                queryParams: {
+                    returnUrl: '/tabs/tab3'
+                }
+            });
+        } else { // 如果没有商品不让跳转结算
+            alert('您还没有选择任何要结算的商品');
+        }
     }
 }

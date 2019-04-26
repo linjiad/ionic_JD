@@ -6,6 +6,16 @@
     <ion-title>
       购物车
     </ion-title>
+    <ion-buttons slot="end" *ngIf="!isEdit">
+      <ion-button (click)="isEdit=!isEdit">
+        编辑
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="isEdit">
+      <ion-button (click)="isEdit=!isEdit">
+        取消
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -33,16 +43,35 @@
       </div>
     </dd>
   </dl>
+  <!--如果购物车没有数据-->
+  <div *ngIf="!hasData">
+    <p class="noCart">购物车空空的，还没有任何数据</p>
+  </div>
 </ion-content>
-<ion-footer>
-  <ion-toolbar>
+<!--如果购物车里有数据显示这些-->
+<ion-footer *ngIf="hasData">
+  <!--如果不是编辑状态显示结算-->
+  <ion-toolbar  *ngIf="!isEdit">
     <ion-buttons slot="start" class="checkout_info" (click)="checkAll()">
       <ion-checkbox color="danger" disabled="true" [(ngModel)]="isCheckedAll"></ion-checkbox >全选
       <strong>合计：<span class="price">¥{{allPrice}}</span></strong>
     </ion-buttons>
-    <ion-buttons slot="end" class="checkout_btn">
+    <ion-buttons slot="end" class="checkout_btn" (click)="doCheckout()">
       <ion-button color="danger" fill="solid">
         去结算
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <!--如果是编辑状态显示删除-->
+  <ion-toolbar *ngIf="isEdit">
+
+    <ion-buttons slot="start" class="checkout_info" (click)="checkAll()">
+      <ion-checkbox disabled="true" color="danger" [(ngModel)]="isCheckedAll"></ion-checkbox>全选
+    </ion-buttons>
+
+    <ion-buttons slot="end" class="checkout_btn">
+      <ion-button color="danger" fill="solid" (click)="doDelete()">
+        删除
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
