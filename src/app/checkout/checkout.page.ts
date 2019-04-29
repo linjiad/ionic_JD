@@ -10,12 +10,12 @@ import { CommonService } from '../services/common.service';
 })
 export class CheckoutPage implements OnInit {
 
-  public returnUrl = '';
-  public userinfo: any = {};
+  public returnUrl = ''; // 上一个页面的路径
+  public userinfo: any = {}; // 用户信息，如果存在就显示让他登录，如果有就不显示
 
-  public list: any[] = [];
+  public list: any[] = []; // 刚才选中的商品列表
 
-  public config: any = {};
+  public config: any = {}; // 请求服务的配置
 
   constructor(public activatedRoute: ActivatedRoute,
               public navController: NavController,
@@ -27,11 +27,12 @@ export class CheckoutPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((data: any) => {
+      console.log(data);
       data.returnUrl ? this.returnUrl = data.returnUrl : this.returnUrl = '/tabs/tab3';
     });
   }
+  // 每次切换到这个页面都会加载
   ionViewDidEnter() {
-
     // 获取用户信息
     const userinfo = this.storage.get('userinfo');
     if (userinfo && userinfo.username) {

@@ -124,6 +124,7 @@ export class Tab3Page {
         if (tempArr.length > 0) {
             this.storage.set('checkoutData', tempArr);
             // this.router.navigate(['/results'], { queryParams: { page: 1 } });
+            // 传递给结算页面，让他知道是该返回到哪个页面
             this.navController.navigateForward(['/checkout'], {
                 queryParams: {
                     returnUrl: '/tabs/tab3'

@@ -4,6 +4,7 @@ import { CommonService } from '../services/common.service';
 import { StorageService } from '../services/storage.service';
 // 监听事件
 import { EventService } from '../services/eventemitter.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -12,21 +13,26 @@ import { EventService } from '../services/eventemitter.service';
 export class LoginPage implements OnInit {
     public userinfo: any = {
         username: '',
-        password: ''
+        password: '',
     }; // 用户信息
+    public returnUrl: any = ''; // 从哪来的页面
 
     constructor(
         public navController: NavController,
         public common: CommonService,
         public storage: StorageService,
         public toastController: ToastController,
-        public eventService: EventService
+        public eventService: EventService,
+        public activatedRoute: ActivatedRoute // 路由跳转
     ) { }
   ngOnInit() {
+      this.activatedRoute.queryParams.subscribe((data: any) => {
+          data.returnUrl ? this.returnUrl = data.returnUrl : this.returnUrl = '/tabs/tab4';
+      });
   }
     goBack() {
         // 登录页面还需要做其他判断   从哪里跳转到登录页面 我们让页面返回到哪里
-        this.navController.navigateBack('/tabs/tab4');
+        this.navController.navigateBack(this.returnUrl);
     }
     // 登录
     doLogin() {
@@ -45,7 +51,8 @@ export class LoginPage implements OnInit {
                     // 1、保存用户信息
                     this.storage.set('userinfo', response.userinfo[0]);
                     // 2、跳转到用户中心 (根)
-                    this.navController.navigateRoot('/tabs/tab4');
+                    // this.navController.navigateRoot('/tabs/tab4');
+                    this.navController.navigateRoot(this.returnUrl);
                     // 通知用户中心更新用户信息
                     this.eventService.eventEmit.emit('useraction');
                 } else {

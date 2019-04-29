@@ -13,6 +13,8 @@ const routes: Routes = [
   { path: 'personal', loadChildren: './personal/personal.module#PersonalPageModule' },
   { path: 'cart', loadChildren: './cart/cart.module#CartPageModule' },
   { path: 'checkout', loadChildren: './checkout/checkout.module#CheckoutPageModule' },
+  { path: 'addressadd', loadChildren: './addressadd/addressadd.module#AddressaddPageModule' },
+  { path: 'address', loadChildren: './addresslist/addresslist.module#AddresslistPageModule' },
 
 
 ];

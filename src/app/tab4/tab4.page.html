@@ -16,7 +16,7 @@
             <img src="/assets/img/user.png">
         </div>
         <div class="user_right">
-            <p [routerLink]="['/login']">登录/注册  <ion-icon slot="start" name="arrow-forward"></ion-icon></p>
+            <p [routerLink]="['/login']"  [queryParams]="{returnUrl:'/tabs/tab4'}">登录/注册  <ion-icon slot="start" name="arrow-forward"></ion-icon></p>
         </div>
     </div>
     <ion-list class="user_list">
